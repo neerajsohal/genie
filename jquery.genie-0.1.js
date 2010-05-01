@@ -43,6 +43,7 @@
 		}
 
 	}
+	
 	$(".slide").bind("start_animation", function(e){
 		$(this).fadeOut(1000);
 		alert($(this).html());
