@@ -3,8 +3,7 @@
 
 		var genie_dom = "<div class='genie_wrapper'><ul class='genie'></ul></div>";
 		var o, base;
-		var genie_style = "<style>.genie_wrapper{overflow:hidden}.genie{position: relative;margin:0;padding:0}.genie li {position: absolute;margin:0;padding:0}</style>";
-
+		var genie_styles = "<style>.genie_wrapper{overflow:hidden}.genie{position: relative;margin:0;padding:0}.genie li {position: absolute;margin:0;padding:0}</style>";
 		var defaults = {  
 			width : '960px',
 			height : '300px',
@@ -16,26 +15,14 @@
 
 		base = $(this);
 		o = $.extend(defaults, options);
-		for(var i = $(base).children().length, y = 0; i > 0; i--, y++) {
-			$(base).children().eq(y).css('zIndex', i + 99999);
-		}
 
 		return this.each(function() {
 			create_elements();
-			setInterval(function() {
-					$('.genie').children(':first').animate({'opacity' : 0}, o.speed, function() {
-						$('.genie')
-						   .children(':first')
-						   .css('zIndex', $('.genie').children(':last').css('zIndex') - 1) // Reduces zIndex by 1 so that it's no longer on top.
-						   .css('opacity', 1) // Return opacity back to 1 for next time.
-						   .appendTo($('.genie')); // move it to the end of the line.
-					})
-				}, o.pause);
 		});
 		
 		function create_elements() {
 			$(base).html(genie_dom);
-			$('head').append(genie_style);
+			$('head').append(genie_styles);
 			$('.genie_wrapper').css({'background-color' : o.background_color, width : o.width, height: '300px', overflow: ''});
 
 			$.ajax({
@@ -44,13 +31,23 @@
 				dataType: "xml",
 				success: function(xml) {
 					var slides = $(xml).find('slide');
+					var count = 0;
 					$(slides).each(function(){
-						$('.genie').append('<li><img src="' + $(this).text() + '" /></li>');
+						$('.genie').append('<li class="slide" id="slide'+count+'"><img src="' + $(this).text() + '" /></li>');
+						$('.genie li:last').css({'z-index' : count});
+						count++;
 					});
-					
 				}
 			});
-		}
-	}
 
-})(jQuery);  
+		}
+
+	}
+	$(".slide").bind("start_animation", function(e){
+		$(this).fadeOut(1000);
+		alert($(this).html());
+	});
+
+	$(".slide").trigger("start_animation");
+
+})(jQuery);
