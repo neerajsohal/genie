@@ -1,0 +1,25 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="jquery.genie-0.1beta.js"></script>
+<script>
+
+$(document).ready(function(){
+	images = new Array();
+	images[0] = {
+		'src' : 'http://dailypop.files.wordpress.com/2009/07/war-machine-iron-man-1280.jpg',
+		'effect' : ''
+	};
+	images[1] = {
+		'src' : 'http://ejohn.org/files/firefox-20011.png',
+		'effect' : ''
+	};
+	images[2] = {
+		'src' : 'http://www2.hawaii.edu/~lissaw/Eeyore%201024.jpg',
+		'effect' : ''
+	};
+	
+	$('canvas').genie(images);
+});
+</script>
+<div style="width: 960px; height: 450px; margin: auto; border: 1px solid #000">
+	<canvas id="canvas" width="960px" height="450px"></canvas>
+</div>

@@ -1,21 +1,19 @@
-(function($){  
-	$.fn.genie = function(options) {  
+(function($){
+	$.fn.genie = function(options) {
 
-		
 		var o, base;
-		var defaults = {  
-			
+		var defaults = {
 		};
 
-		base = $(this);
 		o = $.extend(defaults, options);
 
 		return this.each(function() {
+			alert(base);
 			create_elements();
 		});
-		
+	
 		function create_elements() {
-
+		
 		}
 
 	}
