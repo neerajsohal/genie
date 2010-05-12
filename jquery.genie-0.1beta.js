@@ -2,6 +2,7 @@
 	$.fn.genie = function(options) {
 
 	var o, base;
+	var curr_slide;
 	var defaults = {
 	};
 	
@@ -15,14 +16,13 @@
 		function preload(i) {
 			images[i] = new Image();
 			images[i].onload = function(){
-				alert(options.length + " " + i + ' ' + options[i].src);
 
 				if(i < options.length - 1) {
 					i++;
 					preload(i);
 				}
 				else {
-					slide();
+					cast_spell();
 				 	return;
 				}
 			}
@@ -33,8 +33,19 @@
 	});
 	
 	
-	function slide() {
-		alert('slide');
+	function cast_spell() {
+		base.drawImage(images[0], 0, 0);
+		curr_slide = 0;
+		setInterval(next_slide, 1500);
+	}
+	
+	function next_slide() {
+
+		base.drawImage(images[curr_slide], 0, 0);
+		curr_slide++;
+		if(curr_slide > images.length - 1) {
+			curr_slide = 0;
+		}		
 	}
 
 }
