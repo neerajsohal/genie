@@ -13,8 +13,8 @@
 	return this.each(function() {
 		base = this.getContext("2d");
 		
-		base.fillStyle = "rgba( 00, 00, 00, .8)";
-		base.fillRect(30,30,50,5);
+		ss = new splash_screen(base);
+		ss.init();
 		
 		function preload(i) {
 			images[i] = new Image();
@@ -23,7 +23,7 @@
 				if(i < options.length - 1) {
 					i++;
 					preload(i);
-					base.fillRect(30,30,50 * i ,5);
+					ss.update();
 				}
 				else {
 					cast_spell();
@@ -32,7 +32,6 @@
 			}
 			images[i].src = options[i].src;
 		}
-	
 		preload(0);		
 	});
 	
@@ -52,8 +51,24 @@
 		}		
 	}
 	
-	function progress_bar() {
-		
+}
+
+function splash_screen(context) {
+
+	var base = context;
+	var o;
+	var current_step = 0;
+	this.init = function(options) {
+		o = options;
+		base.setAttribute('width', '300');
+		alert(base.width);
+		base.fillStyle = "rgba(128, 00, 00, .8)";
+		base.fillRect(30, 30, 50 * current_step++, 5);
+		base.fillText('genie', 10, 10);
+	}
+	
+	this.update = function() {
+		base.fillRect(30, 30, 50 * current_step++, 5);
 	}
 
 }
